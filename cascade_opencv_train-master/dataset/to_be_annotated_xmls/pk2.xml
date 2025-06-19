@@ -1,0 +1,26 @@
+<annotation>
+	<folder>to_be_annotated</folder>
+	<filename>pk2.jpg</filename>
+	<path>D:\cascade_opencv_train-master\dataset\to_be_annotated\pk2.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>4032</width>
+		<height>3024</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>car</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>2138</xmin>
+			<ymin>1363</ymin>
+			<xmax>2967</xmax>
+			<ymax>2013</ymax>
+		</bndbox>
+	</object>
+</annotation>

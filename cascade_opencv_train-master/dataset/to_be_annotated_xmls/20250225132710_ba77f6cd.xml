@@ -1,0 +1,26 @@
+<annotation>
+	<folder>to_be_annotated</folder>
+	<filename>20250225132710_ba77f6cd.jpg</filename>
+	<path>D:\cascade_opencv_train-master\dataset\to_be_annotated\20250225132710_ba77f6cd.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>768</width>
+		<height>512</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>car</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>134</xmin>
+			<ymin>280</ymin>
+			<xmax>224</xmax>
+			<ymax>395</ymax>
+		</bndbox>
+	</object>
+</annotation>

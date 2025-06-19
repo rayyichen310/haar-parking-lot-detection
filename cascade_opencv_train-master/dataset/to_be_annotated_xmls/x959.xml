@@ -1,0 +1,26 @@
+<annotation>
+	<folder>to_be_annotated</folder>
+	<filename>x959.jpg</filename>
+	<path>D:\cascade_opencv_train-master\dataset\to_be_annotated\x959.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1279</width>
+		<height>959</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>car</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>380</xmin>
+			<ymin>454</ymin>
+			<xmax>770</xmax>
+			<ymax>779</ymax>
+		</bndbox>
+	</object>
+</annotation>
