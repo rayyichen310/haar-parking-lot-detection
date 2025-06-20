@@ -43,7 +43,7 @@
 │   ├── pk1.json              # 由 class.py 產生的停車格定義檔
 │   └── ...
 │
-└── cascade_opencv_train-master/ # 用於訓練模型的完整工作區
+└── cascade_opencv_train-master/ # 用於訓練模型的完整工作區(建議獨立放置於根根目錄，以避免檔案路徑問題)
     │
     ├── 1_labels_to_pos_neg_imgs.py    # 腳本1：從標註檔提取正/負樣本
     ├── 2_generate-negatives.py        # 腳本2：產生負樣本描述檔
@@ -80,7 +80,7 @@
     ```
 
 2.  **安裝相依套件**
-    建議先建立一個虛擬環境。本專案的核心相依套件已列在 `requirements.txt` 中。
+    建議先建立一個虛擬環境(pyhon<=10)。本專案的核心相依套件已列在 `requirements.txt` 中。
     ```bash
     pip install -r requirements.txt
     ```
@@ -148,7 +148,7 @@ opencv_createsamples -info positives.info -vec training_workspace/positives.vec 
 
 ### 訓練級聯分類器 (`opencv_traincascade`)
 
-此指令使用產生的 `.vec` 檔案和 `negatives.info` 檔案來進行模型訓練。
+此指令使用產生的 `.vec` 檔案和 `negatives.info` 檔案來進行模型訓練(此組為測試過效能最好之參數)。
 
 ```bash
 
@@ -166,7 +166,7 @@ opencv_traincascade -data training_workspace/classifier -vec training_workspace/
 
 ---
 
-## 核心技術
+## 使用觀念
 
 -   **OpenCV**: 用於所有影像讀取、處理、繪圖與 GUI 互動。
 -   **NumPy**: 用於高效的數值與陣列運算。
