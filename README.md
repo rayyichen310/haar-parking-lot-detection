@@ -3,7 +3,7 @@
 這是一個基於 OpenCV 與多模態影像分析的智慧停車格偵測系統。傳統的物件偵測方法在面對車輛部分遮蔽或光線不佳等情境時準確率會下降，本專案透過融合多種偵測技術，旨在建立一個更強健、更可靠的停車格佔用狀態判斷引擎。
 
 
-*(請將此處的圖片連結替換成您自己的偵測結果範例圖)*
+![Uploading image.png…]()
 
 ---
 
@@ -58,26 +58,49 @@
 
 ---
 
-## 專案結構
+## 專案結構 (詳細)
 
 ```
 .
 ├── class.py                  # 互動式停車格定義工具
 ├── vehicle_detection.py      # 主要的偵測程式
 ├── requirements.txt          # 專案所需的 Python 套件
+│
 ├── model/
 │   └── cascade5.xml          # 預先訓練好的 Haar 分類器模型
+│
 ├── parking_lot/
 │   ├── pk1.jpg               # 範例停車場影像
 │   └── ...
+│
 ├── parking_lot_json/
 │   ├── pk1.json              # 由 class.py 產生的停車格定義檔
 │   └── ...
-└── cascade_opencv_train-master/ # (可選) 用於訓練模型的 OpenCV 工具與腳本
-    ├── 1_labels_to_pos_neg_imgs.py
-    ├── 2_generate-negatives.py
-    ├── 3_augmentation.py
-    └── 4_add_aug_positives_to_list.py
+│
+└── cascade_opencv_train-master/ # (可選) 用於訓練模型的完整工作區
+    │
+    ├── 1_labels_to_pos_neg_imgs.py    # 腳本1：從標註檔提取正/負樣本
+    ├── 2_generate-negatives.py        # 腳本2：產生負樣本描述檔
+    ├── 3_augmentation.py              # 腳本3：對正樣本進行資料增強
+    ├── 4_add_aug_positives_to_list.py # 腳本4：產生最終的正樣本描述檔
+    ├── positives.info                 # 腳本4產生的最終正樣本描述檔
+    │
+    ├── dataset/                       # 存放所有原始資料
+    │   ├── to_be_annotated/           # 存放待標註的原始圖片
+    │   ├── to_be_annotated_xmls/      # 存放 labelImg 產生的 XML 標註檔
+    │   ├── pure_positives/            # 存放無需標註的純正樣本圖片
+    │   └── pure_negatives/            # 存放不含目標的負樣本背景圖
+    │
+    └── training_workspace/            # 所有腳本產生的檔案與模型都會存於此
+        ├── positives/                 # 存放從 XML 和純正樣本提取的初始正樣本
+        ├── aug_positives/             # 存放資料增強後的新正樣本
+        ├── neg_bg_from_annotated/     # 存放從已標註圖片中提取的背景圖
+        ├── negatives.info             # 腳本2產生的負樣本圖片路徑列表
+        ├── positives.vec              # 由 opencv_createsamples 產生的正樣本向量檔
+        └── classifier/                # 存放 opencv_traincascade 訓練結果
+            ├── cascade.xml            # 最終產生的分類器模型
+            ├── stage0.xml, ...        # 訓練過程中的各階段模型
+            └── params.xml             # 本次訓練的參數設定
 ```
 
 ---
@@ -139,6 +162,53 @@
 
 ---
 
+## 附錄：模型訓練指令詳解
+
+若您想自行訓練模型，在執行完 `1` 到 `4` 號 Python 腳本後，需使用 OpenCV 提供的工具程式。
+
+**請確保 `opencv_createsamples.exe` 和 `opencv_traincascade.exe` 所在的路徑已加入系統環境變數 `Path` 中。**
+
+### 建立正樣本向量檔 (`opencv_createsamples`)
+
+此指令將 `positives.info` 中列出的所有圖片打包成一個二進位向量檔。
+
+```bash
+opencv_createsamples -info positives.info -vec training_workspace/positives.vec -num 5000 -w 60 -h 60
+```
+-   `-info`: 指定輸入的正樣本描述檔 (`positives.info`)。
+-   `-vec`: 指定輸出的 `.vec` 檔案路徑。
+-   `-num`: 要產生的正樣本總數。**此數值必須小於或等於 `positives.info` 中的總行數**。
+-   `-w`, `-h`: 樣本的寬度和高度（單位：像素），必須與後續訓練時使用的尺寸一致。
+
+### 訓練級聯分類器 (`opencv_traincascade`)
+
+此指令使用產生的 `.vec` 檔案和 `negatives.info` 檔案來進行模型訓練。
+
+```bash
+# Windows cmd 使用 ^ 作為換行符
+opencv_traincascade -data training_workspace/classifier ^
+  -vec training_workspace/positives.vec ^
+  -bg training_workspace/negatives.info ^
+  -numPos 800 ^
+  -numNeg 2000 ^
+  -numStages 12 ^
+  -w 60 -h 60 ^
+  -featureType LBP ^
+  -precalcValBufSize 1024 ^
+  -precalcIdxBufSize 1024
+```
+-   `-data`: 指定儲存訓練好的分類器 (`cascade.xml`) 及各階段模型的資料夾。
+-   `-vec`: 指定輸入的正樣本 `.vec` 檔案。
+-   `-bg`: 指定輸入的負樣本描述檔 (`negatives.info`)。
+-   `-numPos`: **每個階段**要使用的正樣本數量。**此數值必須小於 `-num` (來自 `createsamples`)**。
+-   `-numNeg`: **每個階段**要使用的負樣本數量。此數值可大於 `negatives.info` 中的圖片總數，因為程式會從中隨機裁切。
+-   `-numStages`: 要訓練的分類器總階段數。階段越多，通常越準確，但訓練時間越長。
+-   `-w`, `-h`: 訓練視窗的寬度和高度，必須與 `-vec` 檔案的設定完全相同。
+-   `-featureType`: 使用的特徵類型。`LBP` (預設) 訓練速度快；`HAAR` 訓練速度非常慢，但可能更準確。
+-   `-precalcValBufSize`, `-precalcIdxBufSize`: 分配給預先計算特徵的記憶體大小 (MB)。增加此值可加快訓練速度，但會消耗更多 RAM。
+
+---
+
 ## 核心技術
 
 -   **OpenCV**: 用於所有影像讀取、處理、繪圖與 GUI 互動。
@@ -146,4 +216,4 @@
 -   **Haar 級聯分類器**: 基於 Viola-Jones 框架的快速物件偵測技術。
 -   **Canny 邊緣檢測**: 用於分析影像區域的紋理複雜度。
 -   **HSV 色彩空間**: 用於在不同光照條件下，更穩定地分析顏色特徵。
--   **多邊形遮罩 (Masking)**: 透過 `cv2.fillPoly` 和位元運算，精確地隔離出不規則的停車格分析區域。
+-   **多邊形遮罩 (Masking)**: 透過 `cv2.fillPoly` 和位元運算，精確地隔離出不規則的停車格分析區
