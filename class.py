@@ -144,19 +144,23 @@ class ParkingZoneDefiner:
             info_y = 50
             # --- 新增：顯示ID輸入提示 ---
             if self.is_awaiting_id:
-                prompt_text = f"請輸入車位編號: {self.input_id_str}"
+                prompt_text = f"Enter Space ID: {self.input_id_str}"
                 text_size = cv2.getTextSize(prompt_text, cv2.FONT_HERSHEY_SIMPLEX, 1.2, 4)[0]
                 cv2.rectangle(display_image, (20, info_y - 40), (text_size[0] + 40, info_y + 15), (0, 100, 200), -1)
                 cv2.putText(display_image, prompt_text, (30, info_y),
                             cv2.FONT_HERSHEY_SIMPLEX, 1.2, (255, 255, 255), 4)
                 info_y += 60
 
+            status_text = 'Defining' if self.defining_polygon else ('Awaiting ID' if self.is_awaiting_id else 'Waiting to Start')
+            hint_text = ("Click the space corners" if self.defining_polygon else
+                         ("Enter ID and press Enter" if self.is_awaiting_id else "Left-click to start"))
+
             info_texts = [
-                f"已完成停車格數: {len(self.zones)}",
-                f"目前狀態: {'定義中' if self.defining_polygon else ('等待輸入編號' if self.is_awaiting_id else '等待開始')}",
-                f"目前點數: {len(self.current_polygon)}" if self.defining_polygon else "",
-                "右鍵完成當前停車格" if len(self.current_polygon) >= 3 else "",
-                f"提示: 點擊停車格的四個角點" if self.defining_polygon else ("輸入編號後按Enter" if self.is_awaiting_id else "左鍵開始定義停車格")
+                f"Completed: {len(self.zones)}",
+                f"Status: {status_text}",
+                f"Points: {len(self.current_polygon)}" if self.defining_polygon else "",
+                "Right-click to finish" if len(self.current_polygon) >= 3 else "",
+                f"Hint: {hint_text}"
             ]
             for text in info_texts:
                 if text:
