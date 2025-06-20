@@ -174,3 +174,16 @@ opencv_traincascade -data training_workspace/classifier -vec training_workspace/
 -   **Canny 邊緣檢測**: 用於分析影像區域的紋理複雜度。
 -   **HSV 色彩空間**: 用於在不同光照條件下，更穩定地分析顏色特徵。
 -   **多邊形遮罩 (Masking)**: 透過 `cv2.fillPoly` 和位元運算，精確地隔離出不規則的停車格分析區
+
+ ---
+
+## 參考資料
+- https://docs.opencv.org/2.4/doc/user_guide/ug_traincascade.html
+- https://github.com/andrewssobral/vehicle_detection_haarcascades?tab=readme-ov-file 
+- https://github.com/ankit1khare/Automatic-Parking-Management
+- https://coding-robin.de/2013/07/22/train-your-own-opencv-haar-classifier.html
+- https://answers.opencv.org/question/7141/about-traincascade-paremeters-samples-and-other/
+- https://mmlab.ie.cuhk.edu.hk/datasets/comp_cars/index.html
+- https://stackoverflow.com/questions/11412655/error-train-dataset-for-temp-stage-can-not-be-filled-while-using-traincascade
+- https://chtseng.wordpress.com/2020/02/07/%E5%A6%82%E4%BD%95%E8%A8%93%E7%B7%B4%E4%B8%80%E5%80%8B%E8%B2%93%E8%87%89%E5%81%B5%E6%B8%AC%E5%99%A8/
+-
