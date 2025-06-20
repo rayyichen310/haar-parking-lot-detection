@@ -3,7 +3,8 @@
 這是一個基於 OpenCV 與多模態影像分析的智慧停車格偵測系統。傳統的物件偵測方法在面對車輛部分遮蔽或光線不佳等情境時準確率會下降，本專案透過融合多種偵測技術，旨在建立一個更強健、更可靠的停車格佔用狀態判斷引擎。
 
 
-![Uploading image.png…]()
+![image](https://github.com/user-attachments/assets/874bfd4e-81fc-4595-b394-e5b617a96953)
+
 
 ---
 
