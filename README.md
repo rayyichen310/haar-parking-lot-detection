@@ -151,17 +151,8 @@ opencv_createsamples -info positives.info -vec training_workspace/positives.vec 
 此指令使用產生的 `.vec` 檔案和 `negatives.info` 檔案來進行模型訓練。
 
 ```bash
-# Windows cmd 使用 ^ 作為換行符
-opencv_traincascade -data training_workspace/classifier ^
-  -vec training_workspace/positives.vec ^
-  -bg training_workspace/negatives.info ^
-  -numPos 800 ^
-  -numNeg 2000 ^
-  -numStages 12 ^
-  -w 60 -h 60 ^
-  -featureType LBP ^
-  -precalcValBufSize 1024 ^
-  -precalcIdxBufSize 1024
+
+opencv_traincascade -data training_workspace/classifier -vec training_workspace/positives.vec -bg training_workspace/negatives.info -numPos 800 -numNeg 3000 -numStages 15 -w 60 -h 60 -featureType LBP -precalcValBufSize 1024 -
 ```
 -   `-data`: 指定儲存訓練好的分類器 (`cascade.xml`) 及各階段模型的資料夾。
 -   `-vec`: 指定輸入的正樣本 `.vec` 檔案。
