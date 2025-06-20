@@ -132,7 +132,6 @@
 
 若您想自行訓練模型，在執行完 `1` 到 `4` 號 Python 腳本後，需使用 OpenCV 提供的工具程式。
 
-**請確保 `opencv_createsamples.exe` 和 `opencv_traincascade.exe` 所在的路徑已加入系統環境變數 `Path` 中。**
 
 ### 建立正樣本向量檔 (`opencv_createsamples`)
 
