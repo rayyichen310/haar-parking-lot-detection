@@ -139,7 +139,7 @@
 此指令將 `positives.info` 中列出的所有圖片打包成一個二進位向量檔。
 
 ```bash
-opencv_createsamples -info positives.info -vec training_workspace/positives.vec -num 5000 -w 60 -h 60
+opencv_createsamples -info positives.info -vec training_workspace/positives.vec -num 1080 -w 60 -h 60
 ```
 -   `-info`: 指定輸入的正樣本描述檔 (`positives.info`)。
 -   `-vec`: 指定輸出的 `.vec` 檔案路徑。
@@ -152,7 +152,7 @@ opencv_createsamples -info positives.info -vec training_workspace/positives.vec 
 
 ```bash
 
-opencv_traincascade -data training_workspace/classifier -vec training_workspace/positives.vec -bg training_workspace/negatives.info -numPos 800 -numNeg 2000 -numStages 12 -w 60 -h 60 -featureType LBP -precalcValBufSize 1024 -precalcIdxBufSize 1024
+opencv_traincascade -data training_workspace/classifier -vec training_workspace/positives.vec -bg training_workspace/negatives.info -numPos 800 -numNeg 3000 -numStages 15 -w 60 -h 60 -featureType LBP -precalcValBufSize 1024 -precalcIdxBufSize 1024
 ```
 -   `-data`: 指定儲存訓練好的分類器 (`cascade.xml`) 及各階段模型的資料夾。
 -   `-vec`: 指定輸入的正樣本 `.vec` 檔案。
