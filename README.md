@@ -43,7 +43,7 @@
 │   ├── pk1.json              # 由 class.py 產生的停車格定義檔
 │   └── ...
 │
-└── cascade_opencv_train-master/ # 用於訓練模型的完整工作區(建議獨立放置於根根目錄，以避免檔案路徑問題)
+└── cascade_opencv_train-master/ # 用於訓練模型的完整工作區(建議獨立放置於根目錄，以避免檔案路徑問題!!!!!!!)
     │
     ├── 1_labels_to_pos_neg_imgs.py    # 腳本1：從標註檔提取正/負樣本
     ├── 2_generate-negatives.py        # 腳本2：產生負樣本描述檔
