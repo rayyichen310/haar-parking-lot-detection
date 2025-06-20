@@ -43,7 +43,7 @@
 │   ├── pk1.json              # 由 class.py 產生的停車格定義檔
 │   └── ...
 │
-└── cascade_opencv_train-master/ # (可選) 用於訓練模型的完整工作區
+└── cascade_opencv_train-master/ # 用於訓練模型的完整工作區
     │
     ├── 1_labels_to_pos_neg_imgs.py    # 腳本1：從標註檔提取正/負樣本
     ├── 2_generate-negatives.py        # 腳本2：產生負樣本描述檔
@@ -152,7 +152,7 @@ opencv_createsamples -info positives.info -vec training_workspace/positives.vec 
 
 ```bash
 
-opencv_traincascade -data training_workspace/classifier -vec training_workspace/positives.vec -bg training_workspace/negatives.info -numPos 800 -numNeg 3000 -numStages 15 -w 60 -h 60 -featureType LBP -precalcValBufSize 1024 -
+opencv_traincascade -data training_workspace/classifier -vec training_workspace/positives.vec -bg training_workspace/negatives.info -numPos 800 -numNeg 2000 -numStages 12 -w 60 -h 60 -featureType LBP -precalcValBufSize 1024 -precalcIdxBufSize 1024
 ```
 -   `-data`: 指定儲存訓練好的分類器 (`cascade.xml`) 及各階段模型的資料夾。
 -   `-vec`: 指定輸入的正樣本 `.vec` 檔案。
