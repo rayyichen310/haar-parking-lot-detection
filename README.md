@@ -177,12 +177,12 @@ opencv_traincascade -data training_workspace/classifier -vec training_workspace/
  ---
 
 ## 參考資料
-- https://docs.opencv.org/2.4/doc/user_guide/ug_traincascade.html
-- https://github.com/andrewssobral/vehicle_detection_haarcascades?tab=readme-ov-file 
-- https://github.com/ankit1khare/Automatic-Parking-Management
-- https://coding-robin.de/2013/07/22/train-your-own-opencv-haar-classifier.html
-- https://answers.opencv.org/question/7141/about-traincascade-paremeters-samples-and-other/
-- https://mmlab.ie.cuhk.edu.hk/datasets/comp_cars/index.html
-- https://stackoverflow.com/questions/11412655/error-train-dataset-for-temp-stage-can-not-be-filled-while-using-traincascade
-- https://chtseng.wordpress.com/2020/02/07/%E5%A6%82%E4%BD%95%E8%A8%93%E7%B7%B4%E4%B8%80%E5%80%8B%E8%B2%93%E8%87%89%E5%81%B5%E6%B8%AC%E5%99%A8/
--
+1. G. Bradski and A. Kaehler, *OpenCV User Guide: Training Cascade Classifier*, OpenCV 2.4 Documentation. [Online]. Available: https://docs.opencv.org/2.4/doc/user_guide/ug_traincascade.html  
+2. A. Sobral, *Vehicle Detection using Haar Cascades*, GitHub Repository. [Online]. Available: https://github.com/andrewssobral/vehicle_detection_haarcascades  
+3. A. Khare, *Automatic Parking Management*, GitHub Project. [Online]. Available: https://github.com/ankit1khare/Automatic-Parking-Management  
+4. R. Rouwenhorst, "Train Your Own OpenCV Haar Classifier," *Coding Robin*, Jul. 22, 2013. [Online]. Available: https://coding-robin.de/2013/07/22/train-your-own-opencv-haar-classifier.html  
+5. OpenCV Forum, "About traincascade parameters, samples and other," *OpenCV Q&A Forum*. [Online]. Available: https://answers.opencv.org/question/7141/about-traincascade-paremeters-samples-and-other/  
+6. The Chinese University of Hong Kong, *Comprehensive Cars (CompCars) Dataset*, Multimedia Laboratory. [Online]. Available: https://mmlab.ie.cuhk.edu.hk/datasets/comp_cars/index.html  
+7. Stack Overflow, "Error: Train dataset for temp stage can not be filled while using traincascade," *Stack Overflow*. [Online]. Available: https://stackoverflow.com/questions/11412655/error-train-dataset-for-temp-stage-can-not-be-filled-while-using-traincascade  
+8. C. Tseng, "如何訓練一個貓臉偵測器," *程式學習紀錄筆記*, Feb. 7, 2020. [Online]. Available: https://chtseng.wordpress.com/2020/02/07/%E5%A6%82%E4%BD%95%E8%A8%93%E7%B7%B4%E4%B8%80%E5%80%8B%E8%B2%93%E8%87%89%E5%81%B5%E6%B8%AC%E5%99%A8/
+
