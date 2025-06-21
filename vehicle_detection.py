@@ -18,7 +18,7 @@ class EnhancedParkingDetector:
         """載入多個 Haar 分類器以提升偵測率"""
         detectors = {}
         model_folder = 'model'
-        possible_cascades = [os.path.join(model_folder, 'cascade5.xml')]
+        possible_cascades = [os.path.join(model_folder, 'cascade.xml')]
         if cascade_path:
             possible_cascades.insert(0, cascade_path)
         for cascade_file in possible_cascades:
@@ -301,6 +301,10 @@ def process_single_image():
     for ext in extensions:
         image_files.extend(glob.glob(os.path.join(image_folder, ext)))
         image_files.extend(glob.glob(os.path.join(image_folder, ext.upper())))
+
+
+    image_files = sorted(list(set(image_files)))
+
 
     if not image_files:
         print(f"在資料夾 '{image_folder}' 中找不到任何支援的影像檔案。")
