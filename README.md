@@ -43,7 +43,7 @@
 │   ├── pk1.json              # 由 class.py 產生的停車格定義檔
 │   └── ...
 │
-└── cascade_opencv_train-master/ # 用於訓練模型的完整工作區
+└── cascade_opencv_train-master/ # 用於訓練模型的完整工作區(建議獨立放置於根目錄，以避免檔案路徑問題!!!!!!!)
     │
     ├── 1_labels_to_pos_neg_imgs.py    # 腳本1：從標註檔提取正/負樣本
     ├── 2_generate-negatives.py        # 腳本2：產生負樣本描述檔
@@ -80,7 +80,7 @@
     ```
 
 2.  **安裝相依套件**
-    建議先建立一個虛擬環境。本專案的核心相依套件已列在 `requirements.txt` 中。
+    建議先建立一個虛擬環境(pyhon<=10)。本專案的核心相依套件已列在 `requirements.txt` 中。
     ```bash
     pip install -r requirements.txt
     ```
@@ -132,14 +132,13 @@
 
 若您想自行訓練模型，在執行完 `1` 到 `4` 號 Python 腳本後，需使用 OpenCV 提供的工具程式。
 
-**請確保 `opencv_createsamples.exe` 和 `opencv_traincascade.exe` 所在的路徑已加入系統環境變數 `Path` 中。**
 
 ### 建立正樣本向量檔 (`opencv_createsamples`)
 
 此指令將 `positives.info` 中列出的所有圖片打包成一個二進位向量檔。
 
 ```bash
-opencv_createsamples -info positives.info -vec training_workspace/positives.vec -num 5000 -w 60 -h 60
+opencv_createsamples -info positives.info -vec training_workspace/positives.vec -num 1080 -w 60 -h 60
 ```
 -   `-info`: 指定輸入的正樣本描述檔 (`positives.info`)。
 -   `-vec`: 指定輸出的 `.vec` 檔案路徑。
@@ -148,11 +147,11 @@ opencv_createsamples -info positives.info -vec training_workspace/positives.vec 
 
 ### 訓練級聯分類器 (`opencv_traincascade`)
 
-此指令使用產生的 `.vec` 檔案和 `negatives.info` 檔案來進行模型訓練。
+此指令使用產生的 `.vec` 檔案和 `negatives.info` 檔案來進行模型訓練(此組為測試過效能最好之參數)。
 
 ```bash
 
-opencv_traincascade -data training_workspace/classifier -vec training_workspace/positives.vec -bg training_workspace/negatives.info -numPos 800 -numNeg 2000 -numStages 12 -w 60 -h 60 -featureType LBP -precalcValBufSize 1024 -precalcIdxBufSize 1024
+opencv_traincascade -data training_workspace/classifier -vec training_workspace/positives.vec -bg training_workspace/negatives.info -numPos 800 -numNeg 3000 -numStages 15 -w 60 -h 60 -featureType LBP -precalcValBufSize 1024 -precalcIdxBufSize 1024
 ```
 -   `-data`: 指定儲存訓練好的分類器 (`cascade.xml`) 及各階段模型的資料夾。
 -   `-vec`: 指定輸入的正樣本 `.vec` 檔案。
@@ -166,7 +165,7 @@ opencv_traincascade -data training_workspace/classifier -vec training_workspace/
 
 ---
 
-## 核心技術
+## 使用觀念
 
 -   **OpenCV**: 用於所有影像讀取、處理、繪圖與 GUI 互動。
 -   **NumPy**: 用於高效的數值與陣列運算。
